@@ -1,0 +1,119 @@
+[{
+  "_id": {
+    "$oid": "63c7eb3b79a24921e008a0cb"
+  },
+  "userImage": "user.png",
+  "verified": "false",
+  "secretKey": null,
+  "history": [],
+  "name": "Admin",
+  "email": "admin@gmail.com",
+  "password": "$2a$10$ZytP4zEd4kqDUDXxkSIzs.HzJhlL1MJCxIvk5qxc8l4YtyR34Mv7S",
+  "userRole": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674046267260"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674046267260"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cbc96e3001bc2ce8b53ff2"
+  },
+  "userImage": "user.png",
+  "verified": "false",
+  "secretKey": null,
+  "history": [],
+  "name": "Rafay",
+  "email": "rafay@gmail.com",
+  "password": "$2a$10$yRvmXw3uk9SGpWEQKuXYSedjhzfKH9LdNZIvmA/7MHKdf4Tp.Gk6S",
+  "userRole": 0,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674299758663"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1675065588126"
+    }
+  },
+  "__v": 0,
+  "phoneNumber": {
+    "$numberLong": "3335315526"
+  }
+},{
+  "_id": {
+    "$oid": "63d939b224f4411f903e20d2"
+  },
+  "userImage": "user.png",
+  "verified": "false",
+  "secretKey": null,
+  "history": [],
+  "name": "Anab",
+  "email": "anab@gmail.com",
+  "password": "$2a$10$gcC0utwUT64F1GfBK47G5eGecas4KijgWXXKzU3T1IsNe639CbAUu",
+  "userRole": 0,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1675180466617"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1675180466617"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63e13080af855a01d4f9826b"
+  },
+  "userImage": "user.png",
+  "verified": "false",
+  "secretKey": null,
+  "history": [],
+  "name": "Builder",
+  "email": "builder1@gmail.com",
+  "password": "$2a$10$uZzOiUEWvNxyB1aZr8AhtOgNT1e3BmYJr6r6xhnmMU0n6ctDeKf7.",
+  "userRole": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1675702400591"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1675702400591"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63e130a1af855a01d4f9826e"
+  },
+  "userImage": "user.png",
+  "verified": "false",
+  "secretKey": null,
+  "history": [],
+  "name": "Builder2",
+  "email": "builder2@gmail.com",
+  "password": "$2a$10$OEy6KTbG/rG4o1WQXgenGOJxn8YdAH.EDUpeoQMGGFwChqIWsEW3e",
+  "userRole": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1675702433098"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1675702433098"
+    }
+  },
+  "__v": 0
+}]

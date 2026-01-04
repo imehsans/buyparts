@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* Year 2050 Theme - Using Tailwind Config Colors */
+:root {
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(15, 23, 42, 0.85);
+}
+
+body {
+  @apply bg-brand-dark text-white font-outfit overflow-x-hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-brand-dark;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-700 rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-brand-orange;
+}
+
+/* Utilities */
+.glass-panel {
+  @apply bg-slate-900/85 backdrop-blur-md border border-white/10 shadow-lg;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, theme('colors.brand.orange') 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hover-glow {
+  @apply transition-all duration-300;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(253, 126, 20, 0.5);
+  border-color: theme('colors.brand.orange');
+}

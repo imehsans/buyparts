@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "cName": "Construction Material",
+  "cDescription": "Building material is material used for construction. Many naturally occurring substances, such as clay, rocks, sand, wood, and even twigs and leaves, have been used to construct buildings.",
+  "cStatus": "Active",
+  "cImage": "1674047742843_download (2).jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674047742875"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674047742875"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63caafb27e906d1d3809a976"
+  },
+  "cName": "Construction Wood",
+  "cDescription": "Wood is also among the most popular construction materials used in Pakistan. It is hygroscopic in nature and can absorb moisture in the air to maintain a pleasant environment indoors. ",
+  "cStatus": "Active",
+  "cImage": "1674227634380_L5SY4XIHMRFL5H4PULHKMR2VXQ.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674227634413"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674292744455"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d0dfcdef5b0d08c44a855c"
+  },
+  "cName": "Plastic",
+  "cDescription": "pipes",
+  "cStatus": "Active",
+  "cImage": "1674633165869_plastic-construction-pipes (1).jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674633165880"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674633165880"
+    }
+  },
+  "__v": 0
+}]

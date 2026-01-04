@@ -1,0 +1,319 @@
+[{
+  "_id": {
+    "$oid": "63c7f1e7e40a0f1d6cdaa2d5"
+  },
+  "pSold": 0,
+  "pQuantity": 20000,
+  "pImages": [
+    "1674297238764_istockphoto-1352877532-170667a.jpg",
+    "1674297238765_Storage-of-C.jpg"
+  ],
+  "pOffer": "10",
+  "pName": "Cement",
+  "pDescription": "A cement is a binder, a chemical substance used for construction that sets, hardens, and adheres to other materials to bind them together.",
+  "pPrice": 550,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [
+    {
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1676014584836"
+        }
+      },
+      "_id": {
+        "$oid": "63e5f720824b291fccbb7e21"
+      },
+      "review": "sdjkkdmk",
+      "user": {
+        "$oid": "63cbc96e3001bc2ce8b53ff2"
+      },
+      "rating": "5"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674047975860"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1676015392244"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63caa9747e906d1d3809a966"
+  },
+  "pSold": 0,
+  "pQuantity": 100000,
+  "pImages": [
+    "1674292408105_download (4).jpg",
+    "1674292408106_Points-about-bricks-to-know.jpeg"
+  ],
+  "pOffer": "10",
+  "pName": "Bricks",
+  "pDescription": "Concrete bricks are usually used in the construction of facades, and fences. They provide durability to the structure and can also give them an aesthetically pleasing look. These bricks are manufactured using different colors with the addition of pigments during their production.",
+  "pPrice": 25,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674226036213"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674292408133"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63caad257e906d1d3809a96a"
+  },
+  "pSold": 0,
+  "pQuantity": 1000,
+  "pImages": [
+    "1674292394014_download (7).jpg",
+    "1674292394015_PCC-concrete-All-you-need-to-know-about-this-cement-combination.jpg"
+  ],
+  "pOffer": "12",
+  "pName": "Concrete",
+  "pDescription": "concrete, in construction, structural material consisting of a hard, chemically inert particulate substance, known as aggregate (usually sand and gravel), that is bonded together by cement and water.Price mention per bag of 50 kg",
+  "pPrice": 900,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674226981723"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674292394029"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cab1067e906d1d3809a97d"
+  },
+  "pSold": 0,
+  "pQuantity": 100000,
+  "pImages": [
+    "1674289401440_5_002--ash_wood-supplier-wood.jpg",
+    "1674289401456_ash-lumber.jpg"
+  ],
+  "pOffer": "10",
+  "pName": "Ash Wood",
+  "pDescription": "Ash is a light colored, smooth-grained hardwood that grows throughout the east coast and parts of Canada. With its typical straight grain.\r\nPrice of wood is Per Cft",
+  "pPrice": 10500,
+  "pCategory": {
+    "$oid": "63caafb27e906d1d3809a976"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674227974343"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674299618040"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cbb2053001bc2ce8b53ea1"
+  },
+  "pSold": 0,
+  "pQuantity": 10000,
+  "pImages": [
+    "1674299574008_Padfood-Roller-Compacting-Lime-Treated-Soil-1080x675.jpg",
+    "1674299574010_soil.jpg"
+  ],
+  "pOffer": "45",
+  "pName": "Soil",
+  "pDescription": "Having a low water retention rate, sand, when compacted, makes the perfect soil type for construction projects. Usually, even if water permeates through the layers of sand, it will result in compaction of the uneven particles, rather than washing them away, creating an even sturdier base for your build\r\nPrice per Trolley",
+  "pPrice": 6500,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674293765024"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674301999150"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cbb5c83001bc2ce8b53eb6"
+  },
+  "pSold": 0,
+  "pQuantity": 5000,
+  "pImages": [
+    "1674297135420_1.jpeg",
+    "1674297135421_Wood-Types-By-AAA.jpg"
+  ],
+  "pOffer": "23",
+  "pName": "Diyar Wood ",
+  "pDescription": "Deodar, also known as Himalayan Cedar, is one of the best types of wooden doors to consider for your home.\r\nPrice of wood is(Per Cft)",
+  "pPrice": 8500,
+  "pCategory": {
+    "$oid": "63caafb27e906d1d3809a976"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [
+    {
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1674289117310"
+        }
+      },
+      "_id": {
+        "$oid": "63cbd2873001bc2ce8b540bf"
+      },
+      "review": "best",
+      "user": {
+        "$oid": "63cbc96e3001bc2ce8b53ff2"
+      },
+      "rating": "5"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674294728499"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674302087795"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cbcef33001bc2ce8b5407b"
+  },
+  "pSold": 0,
+  "pQuantity": 200000,
+  "pImages": [
+    "1674301171479_close-up-tar-used-road-construction-close-up-tar-used-road-construction-close-up-photo-fresh-asphalt-123795053.jpg",
+    "1674301171480_Coal-tar.jpg"
+  ],
+  "pOffer": "445",
+  "pName": "Coal tar",
+  "pDescription": " Coal tar is a by-product derived from coal during the manufacture of domestic town gas. It was commonly used in the UK as a binding agent.\r\nprice mention (per kg)",
+  "pPrice": 1000,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674301171488"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674301171488"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63cbd2273001bc2ce8b54090"
+  },
+  "pSold": 0,
+  "pQuantity": 50000,
+  "pImages": [
+    "1674301991929_1000_F_133383074_9EE1TIIjHLCtjY7qkUBfOxxEAZCMjb0j.jpg",
+    "1674301991930_m-sand-for-construction-933.jpg"
+  ],
+  "pOffer": "4500",
+  "pName": "Sand",
+  "pDescription": "Having a low water retention rate, sand, when compacted, makes the perfect soil type for construction projects. \r\nprice mention per trolley\r\n",
+  "pPrice": 12500,
+  "pCategory": {
+    "$oid": "63c7f0fee40a0f1d6cdaa2cf"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [
+    {
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1674289117310"
+        }
+      },
+      "_id": {
+        "$oid": "63cbd27a3001bc2ce8b540b0"
+      },
+      "review": "good",
+      "user": {
+        "$oid": "63cbc96e3001bc2ce8b53ff2"
+      },
+      "rating": "4"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674301991936"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674302074963"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d0e091ef5b0d08c44a8563"
+  },
+  "pSold": 0,
+  "pQuantity": 344444,
+  "pImages": [
+    "1675065209266_plastic-construction-pipes (1).jpg",
+    "1675065209273_plastic-construction-pipes.jpg"
+  ],
+  "pOffer": "12",
+  "pName": "Pvc Pipes",
+  "pDescription": "Length 13 feet\r\n4-inch pipe\r\nprice per pipe\r\n",
+  "pPrice": 1400,
+  "pCategory": {
+    "$oid": "63d0dfcdef5b0d08c44a855c"
+  },
+  "pStatus": "Active",
+  "pRatingsReviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674633361871"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1675065209287"
+    }
+  },
+  "__v": 0
+}]
