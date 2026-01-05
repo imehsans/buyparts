@@ -41,6 +41,18 @@ const orderSchema = new mongoose.Schema(
         "Cancelled",
       ],
     },
+    paymentScreenshot: {
+      type: String,
+      default: null,
+    },
+    courierName: {
+      type: String,
+      default: null,
+    },
+    trackingId: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );

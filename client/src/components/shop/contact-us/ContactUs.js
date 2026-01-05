@@ -44,7 +44,7 @@ const ContactComponent = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wide">CALL US</h4>
-                  <p className="mt-1 text-white font-medium">(+92) 3237112012</p>
+                  <p className="mt-1 text-white font-medium">(+92) 339-0333433</p>
                 </div>
               </div>
 
@@ -59,7 +59,7 @@ const ContactComponent = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wide">EMAIL ADDRESS:</h4>
-                  <p className="mt-1 text-white font-medium">dndstores.pk@gmail.com</p>
+                  <p className="mt-1 text-white font-medium">mehsanjadoon786@gmial.com</p>
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ const ContactComponent = () => {
                 <div className="ml-4">
                   <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wide">STORE LOCATION</h4>
                   <p className="mt-1 text-white font-medium w-64">
-                    Shop No: 06, 1st Floor, Rehamt Plaza, Main I10 Markaz, Islamabad
+                    incoming
                   </p>
                 </div>
               </div>

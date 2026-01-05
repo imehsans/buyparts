@@ -2,37 +2,48 @@ import React, { Fragment, useContext } from "react";
 import { CategoryContext } from "./index";
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
+import { PlusCircle, Search } from "lucide-react";
 
 const CategoryMenu = (props) => {
   const { dispatch } = useContext(CategoryContext);
 
   return (
     <Fragment>
-      <div className="col-span-1 flex items-center">
-        <div className="flex flex-col space-y-4 md:flex-row md:justify-between md:items-center w-full">
-          {/* It's open the add category modal */}
-          <div
-            style={{ background: "#303031" }}
-            onClick={(e) =>
-              dispatch({ type: "addCategoryModal", payload: true })
-            }
-            className="cursor-pointer rounded-full p-2 flex items-center justify-center text-gray-100 text-sm font-semibold uppercase"
-          >
-            <svg
-              className="w-6 h-6 text-gray-100 mr-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                clipRule="evenodd"
+      <div className="col-span-1 mb-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-dark-card border border-white/5 p-4 rounded-xl shadow-lg backdrop-blur-sm">
+
+          {/* Header Title */}
+          <h2 className="text-xl font-bold text-white tracking-wide flex items-center">
+            <span className="bg-neon-orange/10 p-2 rounded-lg mr-3 text-neon-orange border border-neon-orange/20">
+              <PlusCircle size={20} />
+            </span>
+            Category Management
+          </h2>
+
+          <div className="flex items-center space-x-4 w-full md:w-auto">
+            {/* Search box placeholder for future implementation */}
+            <div className="relative group hidden md:block">
+              <input
+                type="text"
+                placeholder="Search categories..."
+                className="pl-9 pr-4 py-2 bg-black/20 border border-gray-700 rounded-lg text-sm text-gray-300 focus:outline-none focus:border-neon-orange focus:ring-1 focus:ring-neon-orange transition-all w-64"
               />
-            </svg>
-            Add Category
+              <Search size={16} className="absolute left-3 top-2.5 text-gray-500 group-focus-within:text-neon-orange transition-colors" />
+            </div>
+
+            {/* Add Button */}
+            <button
+              onClick={(e) =>
+                dispatch({ type: "addCategoryModal", payload: true })
+              }
+              className="flex items-center justify-center space-x-2 px-6 py-2 bg-neon-orange/10 hover:bg-neon-orange/20 text-neon-orange border border-neon-orange/50 rounded-lg transition-all shadow-[0_0_15px_rgba(253,126,20,0.2)] hover:shadow-[0_0_25px_rgba(253,126,20,0.4)] font-medium uppercase tracking-wider text-sm w-full md:w-auto"
+            >
+              <PlusCircle size={18} />
+              <span>Add Category</span>
+            </button>
           </div>
         </div>
+
         <AddCategoryModal />
         <EditCategoryModal />
       </div>

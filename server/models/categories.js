@@ -17,6 +17,11 @@ const categorySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cType: {
+      type: String,
+      default: "Bike",
+      enum: ["Bike", "Car"],
+    }
   },
   { timestamps: true }
 );

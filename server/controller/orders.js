@@ -38,6 +38,15 @@ class Order {
 
   async postCreateOrder(req, res) {
     let { allProduct, user, amount, transactionId, address, phone } = req.body;
+
+    // Check if coming from FormData (strings) and parse
+    if (typeof allProduct === 'string') allProduct = JSON.parse(allProduct);
+
+    let paymentScreenshot = null;
+    if (req.files && req.files.length > 0) {
+      paymentScreenshot = req.files[0].filename;
+    }
+
     if (
       !allProduct ||
       !user ||
@@ -56,24 +65,27 @@ class Order {
           transactionId,
           address,
           phone,
+          paymentScreenshot
         });
         let save = await newOrder.save();
         if (save) {
           return res.json({ success: "Order created successfully" });
         }
       } catch (err) {
-        return res.json({ error: error });
+        return res.json({ error: err });
       }
     }
   }
 
   async postUpdateOrder(req, res) {
-    let { oId, status } = req.body;
+    let { oId, status, courierName, trackingId } = req.body;
     if (!oId || !status) {
       return res.json({ message: "All filled must be required" });
     } else {
       let currentOrder = orderModel.findByIdAndUpdate(oId, {
         status: status,
+        courierName: courierName,
+        trackingId: trackingId,
         updatedAt: Date.now(),
       });
       try {

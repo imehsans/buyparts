@@ -1,125 +1,91 @@
 import React, { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, ShoppingBag, Layers, Truck, CreditCard } from "lucide-react";
 
 const AdminSidebar = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const menuItems = [
+    {
+      name: "Dashboard",
+      path: "/admin/dashboard",
+      icon: <LayoutDashboard size={24} />,
+    },
+    {
+      name: "Main Categories",
+      path: "/admin/dashboard/main-categories",
+      icon: <Layers size={24} />,
+    },
+    {
+      name: "Categories",
+      path: "/admin/dashboard/categories",
+      icon: <Layers size={24} />,
+    },
+    {
+      name: "Products",
+      path: "/admin/dashboard/products",
+      icon: <ShoppingBag size={24} />,
+    },
+    {
+      name: "Orders",
+      path: "/admin/dashboard/orders",
+      icon: <Truck size={24} />,
+    },
+    {
+      name: "Payment Settings",
+      path: "/admin/dashboard/payment-settings",
+      icon: <CreditCard size={24} />,
+    },
+  ];
+
   return (
     <Fragment>
       <div
-        style={{ boxShadow: "1px 1px 8px 0.2px #aaaaaa" }}
         id="sidebar"
-        className="hidden md:block sticky top-0 left-0 h-screen md:w-3/12 lg:w-2/12 sidebarShadow bg-white text-gray-600"
+        className="hidden md:flex flex-col sticky top-0 left-0 h-screen md:w-3/12 lg:w-2/12 bg-dark-surface border-r border-gray-800 text-gray-400 z-50 backdrop-blur-md bg-opacity-90"
       >
-        <div
-          onClick={(e) => navigate("/admin/dashboard")}
-          className={`${
-            location.pathname === "/admin/dashboard"
-              ? "border-r-4 border-gray-800 bg-gray-100"
-              : ""
-          } hover:bg-gray-200 cursor-pointer flex flex-col items-center justify-center py-6`}
-        >
-          <span>
-            <svg
-              className="w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-          </span>
-          <span className="hover:text-gray-800">Dashboard</span>
+        <div className="p-6 flex items-center justify-center border-b border-gray-800">
+          <h1 className="text-2xl font-bold text-white tracking-widest uppercase">
+            Admin<span className="text-neon-blue">.</span>
+          </h1>
         </div>
-        <hr className="border-b border-gray-200" />
-        <div
-          onClick={(e) => navigate("/admin/dashboard/categories")}
-          className={`${
-            location.pathname === "/admin/dashboard/categories"
-              ? "border-r-4 border-gray-800 bg-gray-100"
-              : ""
-          } hover:bg-gray-200 cursor-pointer flex flex-col items-center justify-center py-6`}
-        >
-          <span>
-            <svg
-              className="w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-          </span>
-          <span className="hover:text-gray-800">Categories</span>
+
+        <div className="flex-1 overflow-y-auto py-6 space-y-2">
+          {menuItems.map((item, index) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <div
+                key={index}
+                onClick={() => navigate(item.path)}
+                className={`
+                  group flex items-center px-6 py-4 cursor-pointer transition-all duration-300 relative
+                  ${isActive
+                    ? "text-neon-blue bg-white/5"
+                    : "hover:text-white hover:bg-white/5"
+                  }
+                `}
+              >
+                {isActive && (
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-neon-blue shadow-[0_0_10px_#00f3ff]"></div>
+                )}
+
+                <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
+                  {item.icon}
+                </span>
+                <span className="ml-4 font-medium tracking-wide">{item.name}</span>
+
+                {isActive && (
+                  <div className="absolute right-4 w-2 h-2 rounded-full bg-neon-blue shadow-[0_0_8px_#00f3ff]"></div>
+                )}
+              </div>
+            );
+          })}
         </div>
-        <hr className="border-b border-gray-200" />
-        <div
-          onClick={(e) => navigate("/admin/dashboard/products")}
-          className={`${
-            location.pathname === "/admin/dashboard/products"
-              ? "border-r-4 border-gray-800 bg-gray-100"
-              : ""
-          } hover:bg-gray-200 cursor-pointer flex flex-col items-center justify-center py-6`}
-        >
-          <span>
-            <svg
-              className="w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-              />
-            </svg>
-          </span>
-          <span className="hover:text-gray-800">Product</span>
+
+        <div className="p-6 border-t border-gray-800 text-xs text-center text-gray-600">
+          © 2080 BUYPARTS
         </div>
-        <hr className="border-b border-gray-200" />
-        <div
-          onClick={(e) => navigate("/admin/dashboard/orders")}
-          className={`${
-            location.pathname === "/admin/dashboard/orders"
-              ? "border-r-4 border-gray-800 bg-gray-100"
-              : ""
-          } hover:bg-gray-200 cursor-pointer flex flex-col items-center justify-center py-6`}
-        >
-          <span>
-            <svg
-              className="w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-              />
-            </svg>
-          </span>
-          <span className="hover:text-gray-800">Order</span>
-        </div>
-        <hr className="border-b border-gray-200" />
       </div>
     </Fragment>
   );

@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect } from "react";
 import { getAllCategory, deleteCategory } from "./FetchApi";
 import { CategoryContext } from "./index";
 import moment from "moment";
+import { Edit2, Trash2, CheckCircle, XCircle, Image as ImageIcon } from "lucide-react";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -39,81 +40,78 @@ const AllCategory = (props) => {
   };
 
   /* This method call the editmodal & dispatch category context */
-  const editCategory = (cId, type, des, status) => {
+  const editCategory = (cId, type, des, status, cType) => {
     if (type) {
       dispatch({
         type: "editCategoryModalOpen",
         cId: cId,
         des: des,
         status: status,
+        cType: cType,
       });
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <svg
-          class="w-12 h-12 animate-spin text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          ></path>
-        </svg>
+      <div className="flex items-center justify-center p-8 min-h-[400px]">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neon-blue shadow-[0_0_15px_#00f3ff]"></div>
+          <span className="text-neon-blue animate-pulse">Loading Categories...</span>
+        </div>
       </div>
     );
   }
 
   return (
     <Fragment>
-      <div className="col-span-1 overflow-auto bg-white shadow-lg p-4">
-        <table className="table-auto border w-full my-2">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border">Category</th>
-              <th className="px-4 py-2 border">Description</th>
-              <th className="px-4 py-2 border">Image</th>
-              <th className="px-4 py-2 border">Status</th>
-              <th className="px-4 py-2 border">Created at</th>
-              <th className="px-4 py-2 border">Updated at</th>
-              <th className="px-4 py-2 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories && categories.length > 0 ? (
-              categories.map((item, key) => {
-                return (
-                  <CategoryTable
-                    category={item}
-                    editCat={(cId, type, des, status) =>
-                      editCategory(cId, type, des, status)
-                    }
-                    deleteCat={(cId) => deleteCategoryReq(cId)}
-                    key={key}
-                  />
-                );
-              })
-            ) : (
+      <div className=" bg-dark-card border border-white/5 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm relative">
+        {/* Decorative gradient line */}
+        <div className="h-1 w-full bg-gradient-to-r from-neon-purple via-neon-pink to-neon-orange"></div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm text-gray-400">
+            <thead className="bg-white/5 uppercase tracking-wider font-semibold text-xs text-gray-300">
               <tr>
-                <td
-                  colSpan="7"
-                  className="text-xl text-center font-semibold py-8"
-                >
-                  No category found
-                </td>
+                <th className="px-6 py-4">Category</th>
+                <th className="px-6 py-4">Type</th>
+                <th className="px-6 py-4">Description</th>
+                <th className="px-6 py-4 text-center">Image</th>
+                <th className="px-6 py-4 text-center">Status</th>
+                <th className="px-6 py-4 text-center">Created At</th>
+                <th className="px-6 py-4 text-center">Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
-        <div className="text-sm text-gray-600 mt-2">
-          Total {categories && categories.length} category found
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {categories && categories.length > 0 ? (
+                categories.map((item, key) => {
+                  return (
+                    <CategoryTable
+                      category={item}
+                      editCat={(cId, type, des, status) =>
+                        editCategory(cId, type, des, status)
+                      }
+                      deleteCat={(cId) => deleteCategoryReq(cId)}
+                      key={key}
+                    />
+                  );
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan="7"
+                      className="px-6 py-12 text-center text-gray-500 italic"
+                    >
+                    No categories found in database.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="p-4 border-t border-white/5 text-xs text-center text-gray-600 flex justify-between items-center px-6">
+          <span>Total Protocol: Secure</span>
+          <span>{categories && categories.length} Categories Indexed</span>
         </div>
       </div>
     </Fragment>
@@ -124,84 +122,78 @@ const AllCategory = (props) => {
 const CategoryTable = ({ category, deleteCat, editCat }) => {
   return (
     <Fragment>
-      <tr>
-        <td className="p-2 text-left">
-          {category.cName.length > 20
-            ? category.cName.slice(0, 20) + "..."
-            : category.cName}
+      <tr className="hover:bg-white/[0.02] transition-colors group">
+        <td className="px-6 py-4 font-bold text-white tracking-wide">
+          {category.cName}
         </td>
-        <td className="p-2 text-left">
+        <td className="px-6 py-4">
+          <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${category.cType === 'Bike' ? 'bg-orange-500/10 text-orange-500 border border-orange-500/20' : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'}`}>
+            {category.cType || "Bike"}
+          </span>
+        </td>
+        <td className="px-6 py-4 max-w-xs truncate" title={category.cDescription}>
           {category.cDescription.length > 30
             ? category.cDescription.slice(0, 30) + "..."
             : category.cDescription}
         </td>
-        <td className="p-2 text-center">
-          <img
-            className="w-12 h-12 object-cover object-center"
-            src={`${apiURL}/uploads/categories/${category.cImage}`}
-            alt=""
-          />
+        <td className="px-6 py-4 text-center">
+          <div className="flex justify-center">
+            <div className="h-12 w-12 rounded-lg border border-white/10 overflow-hidden bg-white/5 relative group-hover:border-neon-blue/50 transition-colors">
+              {category.cImage ? (
+                <img
+                  className="h-full w-full object-cover"
+                  src={`${apiURL}/uploads/categories/${category.cImage}`}
+                  alt={category.cName}
+                />
+              ) : (
+                <div className="h-full w-full flex items-center justify-center text-gray-600">
+                  <ImageIcon size={18} />
+                </div>
+              )}
+            </div>
+          </div>
         </td>
-        <td className="p-2 text-center">
+        <td className="px-6 py-4 text-center">
           {category.cStatus === "Active" ? (
-            <span className="bg-green-200 rounded-full text-center text-xs px-2 font-semibold">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></span>
               {category.cStatus}
             </span>
           ) : (
-            <span className="bg-red-200 rounded-full text-center text-xs px-2 font-semibold">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-500 border border-red-500/20 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span>
               {category.cStatus}
             </span>
           )}
         </td>
-        <td className="p-2 text-center">
-          {moment(category.createdAt).format("lll")}
+        <td className="px-6 py-4 text-center text-xs text-gray-500 font-mono">
+          {moment(category.createdAt).format("MMM Do YY")}
         </td>
-        <td className="p-2 text-center">
-          {moment(category.updatedAt).format("lll")}
-        </td>
-        <td className="p-2 flex items-center justify-center">
-          <span
+        <td className="px-6 py-4 text-center">
+          <div className="flex items-center justify-center space-x-2">
+            <button
             onClick={(e) =>
               editCat(
                 category._id,
                 true,
                 category.cDescription,
-                category.cStatus
+                category.cStatus,
+                category.cType
               )
             }
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+              className="p-2 bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-500/20 hover:text-blue-300 transition-colors border border-blue-500/20"
+              title="Edit"
           >
-            <svg
-              className="w-6 h-6 fill-current text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-              <path
-                fillRule="evenodd"
-                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
-          <span
+              <Edit2 size={16} />
+            </button>
+            <button
             onClick={(e) => deleteCat(category._id)}
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+              className="p-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 hover:text-red-300 transition-colors border border-red-500/20"
+              title="Delete"
           >
-            <svg
-              className="w-6 h-6 fill-current text-red-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
+              <Trash2 size={16} />
+            </button>
+          </div>
         </td>
       </tr>
     </Fragment>

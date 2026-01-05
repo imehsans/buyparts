@@ -1,4 +1,4 @@
-import axios from "axios";
+  import axios from "axios";
 const apiURL = import.meta.env.VITE_API_URL;
 
 const BearerToken = () =>
@@ -27,12 +27,14 @@ export const createCategory = async ({
   cImage,
   cDescription,
   cStatus,
+  cType,
 }) => {
   let formData = new FormData();
   formData.append("cImage", cImage);
   formData.append("cName", cName);
   formData.append("cDescription", cDescription);
   formData.append("cStatus", cStatus);
+  formData.append("cType", cType);
 
   try {
     let res = await axios.post(
@@ -46,8 +48,8 @@ export const createCategory = async ({
   }
 };
 
-export const editCategory = async (cId, des, status) => {
-  let data = { cId: cId, cDescription: des, cStatus: status };
+export const editCategory = async (cId, des, status, type) => {
+  let data = { cId: cId, cDescription: des, cStatus: status, cType: type };
   try {
     let res = await axios.post(
       `${apiURL}/api/category/edit-category`,

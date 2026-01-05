@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import { CategoryContext } from "./index";
 import { editCategory, getAllCategory } from "./FetchApi";
+import { X, Save } from "lucide-react";
 
 const EditCategoryModal = (props) => {
   const { data, dispatch } = useContext(CategoryContext);
@@ -8,11 +9,13 @@ const EditCategoryModal = (props) => {
   const [des, setDes] = useState("");
   const [status, setStatus] = useState("");
   const [cId, setCid] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     setDes(data.editCategoryModal.des);
     setStatus(data.editCategoryModal.status);
     setCid(data.editCategoryModal.cId);
+    setType(data.editCategoryModal.cType || "Bike");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.editCategoryModal.modal]);
@@ -29,7 +32,7 @@ const EditCategoryModal = (props) => {
 
   const submitForm = async () => {
     dispatch({ type: "loading", payload: true });
-    let edit = await editCategory(cId, des, status);
+    let edit = await editCategory(cId, des, status, type);
     if (edit.error) {
       console.log(edit.error);
       dispatch({ type: "loading", payload: false });
@@ -50,7 +53,7 @@ const EditCategoryModal = (props) => {
         onClick={(e) => dispatch({ type: "editCategoryModalClose" })}
         className={`${
           data.editCategoryModal.modal ? "" : "hidden"
-        } fixed top-0 left-0 z-30 w-full h-full bg-black opacity-50`}
+          } fixed top-0 left-0 z-40 w-full h-full bg-black/70 backdrop-blur-sm transition-opacity duration-300`}
       />
       {/* End Black Overlay */}
 
@@ -58,71 +61,70 @@ const EditCategoryModal = (props) => {
       <div
         className={`${
           data.editCategoryModal.modal ? "" : "hidden"
-        } fixed inset-0 m-4  flex items-center z-30 justify-center`}
+          } fixed inset-0 m-4 flex items-center z-50 justify-center transition-opacity duration-300`}
       >
-        <div className="relative bg-white w-11/12 md:w-3/6 shadow-lg flex flex-col items-center space-y-4  overflow-y-auto px-4 py-4 md:px-8">
-          <div className="flex items-center justify-between w-full pt-4">
-            <span className="text-left font-semibold text-2xl tracking-wider">
-              Add Category
+        <div className="relative bg-dark-card w-full md:w-3/6 shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 rounded-2xl flex flex-col items-center space-y-4 overflow-y-auto px-4 py-8 md:px-8 animate-in zoom-in-95 duration-200">
+
+          <div className="flex items-center justify-between w-full border-b border-white/10 pb-4">
+            <span className="text-left font-bold text-2xl tracking-wide text-white">
+              Edit Category
             </span>
             {/* Close Modal */}
             <span
-              style={{ background: "#303031" }}
               onClick={(e) => dispatch({ type: "editCategoryModalClose" })}
-              className="cursor-pointer text-gray-100 py-2 px-2 rounded-full"
+              className="cursor-pointer text-gray-400 hover:text-white transition-colors"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <X size={24} />
             </span>
           </div>
-          <div className="flex flex-col space-y-1 w-full">
-            <label htmlFor="description">Category Description</label>
+
+          <div className="flex flex-col space-y-2 w-full mt-4">
+            <label htmlFor="description" className="text-sm font-medium text-gray-400 uppercase tracking-widest">Category Description</label>
             <textarea
               value={des}
               onChange={(e) => setDes(e.target.value)}
-              className="px-4 py-2 border focus:outline-none"
+              className="px-4 py-3 bg-black/20 border border-gray-700 rounded-lg focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white placeholder-gray-600 transition-all font-outfit"
               name="description"
               id="description"
               cols={5}
               rows={5}
             />
           </div>
-          <div className="flex flex-col space-y-1 w-full">
-            <label htmlFor="status">Category Status</label>
+          <div className="flex flex-col space-y-2 w-full mt-4">
+            <label htmlFor="status" className="text-sm font-medium text-gray-400 uppercase tracking-widest">Category Status</label>
             <select
               value={status}
               name="status"
               onChange={(e) => setStatus(e.target.value)}
-              className="px-4 py-2 border focus:outline-none"
+              className="px-4 py-3 bg-black/20 border border-gray-700 rounded-lg focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white transition-all font-outfit appearance-none"
               id="status"
             >
-              <option name="status" value="Active">
-                Active
-              </option>
-              <option name="status" value="Disabled">
-                Disabled
-              </option>
+              <option value="Active" className="bg-dark-card text-white">Active</option>
+              <option value="Disabled" className="bg-dark-card text-white">Disabled</option>
             </select>
           </div>
-          <div className="flex flex-col space-y-1 w-full pb-4 md:pb-6">
-            <button
-              style={{ background: "#303031" }}
-              onClick={(e) => submitForm()}
-              className="rounded-full bg-gray-800 text-gray-100 text-lg font-medium py-2"
+
+          <div className="flex flex-col space-y-2 w-full mt-4">
+            <label htmlFor="type" className="text-sm font-medium text-gray-400 uppercase tracking-widest">Category Type</label>
+            <select
+              value={type}
+              name="type"
+              onChange={(e) => setType(e.target.value)}
+              className="px-4 py-3 bg-black/20 border border-gray-700 rounded-lg focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white transition-all font-outfit appearance-none"
+              id="type"
             >
-              Create category
+              <option value="Bike" className="bg-dark-card text-white">Bike</option>
+              <option value="Car" className="bg-dark-card text-white">Car</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col space-y-1 w-full pb-4 md:pb-6 mt-8">
+            <button
+              onClick={(e) => submitForm()}
+              className="flex items-center justify-center space-x-2 w-full bg-gradient-to-r from-neon-blue to-neon-purple text-white rounded-lg text-lg font-bold py-3 hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all uppercase tracking-wider"
+            >
+              <Save size={20} />
+              <span>Save Changes</span>
             </button>
           </div>
         </div>

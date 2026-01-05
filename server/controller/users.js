@@ -68,14 +68,23 @@ class User {
 
   async postEditUser(req, res) {
     let { uId, name, phoneNumber } = req.body;
+    let userImage = req.files && req.files.length > 0 ? req.files[0].filename : null;
+
     if (!uId || !name || !phoneNumber) {
       return res.json({ message: "All filled must be required" });
     } else {
-      let currentUser = userModel.findByIdAndUpdate(uId, {
+      let updateData = {
         name: name,
         phoneNumber: phoneNumber,
         updatedAt: Date.now(),
-      });
+      };
+
+      if (userImage) {
+        updateData.userImage = userImage;
+        // Optional: Delete old image logic could go here if we fetch the user first
+      }
+
+      let currentUser = userModel.findByIdAndUpdate(uId, updateData);
       try {
         await currentUser;
         return res.json({ success: "User updated successfully" });

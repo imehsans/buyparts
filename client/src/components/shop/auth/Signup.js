@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { signupReq } from "./fetchApi";
 import { useSnackbar } from 'notistack';
+import { UserPlus } from "lucide-react";
+
 const Signup = (props) => {
   const [data, setData] = useState({
     name: "",
@@ -13,9 +15,10 @@ const Signup = (props) => {
   });
 
   const alert = (msg, type) => (
-    <div className={`text-sm text-${type}-500`}>{msg}</div>
+    <div className={`text-sm ${type === "green" ? "text-green-400 bg-green-400/10 border-green-400/20" : "text-red-400 bg-red-400/10 border-red-400/20"} border p-3 rounded mb-4 text-center`}>{msg}</div>
   );
   const { enqueueSnackbar } = useSnackbar();
+
   const formSubmit = async () => {
     setData({ ...data, loading: true });
     if (data.cPassword !== data.password) {
@@ -61,12 +64,17 @@ const Signup = (props) => {
 
   return (
     <Fragment>
-      <div className="text-center text-2xl mb-6">Register</div>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
+        <p className="text-gray-400 text-sm">Join the future of auto parts trading</p>
+      </div>
+
       <form className="space-y-4">
         {data.success ? alert(data.success, "green") : ""}
+
         <div className="flex flex-col">
-          <label htmlFor="name">
-            Name<span className="text-sm text-gray-600 ml-1">*</span>
+          <label htmlFor="name" className="text-sm font-medium text-gray-300 mb-1">
+            Full Name
           </label>
           <input
             onChange={(e) =>
@@ -80,15 +88,15 @@ const Signup = (props) => {
             value={data.name}
             type="text"
             id="name"
-            className={`${
-              data.error.name ? "border-red-500" : ""
-            } px-4 py-2 focus:outline-none border`}
+            placeholder="John Doe"
+            className={`bg-black/20 border ${data.error.name ? "border-red-500" : "border-gray-700"} rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-all`}
           />
-          {!data.error ? "" : alert(data.error.name, "red")}
+          {!data.error ? "" : <span className="text-xs text-red-500 mt-1">{data.error.name}</span>}
         </div>
+
         <div className="flex flex-col">
-          <label htmlFor="email">
-            Email address<span className="text-sm text-gray-600 ml-1">*</span>
+          <label htmlFor="email" className="text-sm font-medium text-gray-300 mb-1">
+            Email Address
           </label>
           <input
             onChange={(e) =>
@@ -102,15 +110,15 @@ const Signup = (props) => {
             value={data.email}
             type="email"
             id="email"
-            className={`${
-              data.error.email ? "border-red-500" : ""
-            } px-4 py-2 focus:outline-none border`}
+            placeholder="name@example.com"
+            className={`bg-black/20 border ${data.error.email ? "border-red-500" : "border-gray-700"} rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-all`}
           />
-          {!data.error ? "" : alert(data.error.email, "red")}
+          {!data.error ? "" : <span className="text-xs text-red-500 mt-1">{data.error.email}</span>}
         </div>
+
         <div className="flex flex-col">
-          <label htmlFor="password">
-            Password<span className="text-sm text-gray-600 ml-1">*</span>
+          <label htmlFor="password" className="text-sm font-medium text-gray-300 mb-1">
+            Password
           </label>
           <input
             onChange={(e) =>
@@ -124,16 +132,15 @@ const Signup = (props) => {
             value={data.password}
             type="password"
             id="password"
-            className={`${
-              data.error.password ? "border-red-500" : ""
-            } px-4 py-2 focus:outline-none border`}
+            placeholder="••••••••"
+            className={`bg-black/20 border ${data.error.password ? "border-red-500" : "border-gray-700"} rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-all`}
           />
-          {!data.error ? "" : alert(data.error.password, "red")}
+          {!data.error ? "" : <span className="text-xs text-red-500 mt-1">{data.error.password}</span>}
         </div>
+
         <div className="flex flex-col">
-          <label htmlFor="cPassword">
-            Confirm password
-            <span className="text-sm text-gray-600 ml-1">*</span>
+          <label htmlFor="cPassword" className="text-sm font-medium text-gray-300 mb-1">
+            Confirm Password
           </label>
           <input
             onChange={(e) =>
@@ -147,34 +154,19 @@ const Signup = (props) => {
             value={data.cPassword}
             type="password"
             id="cPassword"
-            className={`${
-              data.error.cPassword ? "border-red-500" : ""
-            } px-4 py-2 focus:outline-none border`}
+            placeholder="••••••••"
+            className={`bg-black/20 border ${data.error.cPassword ? "border-red-500" : "border-gray-700"} rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-all`}
           />
-          {!data.error ? "" : alert(data.error.cPassword, "red")}
+          {!data.error ? "" : <span className="text-xs text-red-500 mt-1">{data.error.cPassword}</span>}
         </div>
-        <div className="flex flex-col space-y-2 md:flex-row md:justify-between md:items-center">
-          <div>
-            <input
-              type="checkbox"
-              id="rememberMe"
-              className="px-4 py-2 focus:outline-none border mr-1"
-            />
-            <label htmlFor="rememberMe">
-              Remember me<span className="text-sm text-gray-600">*</span>
-            </label>
-          </div>
-          <a className="block text-gray-600" href="/">
-            Lost your password?
-          </a>
-        </div>
-        <div
-          onClick={(e) => formSubmit()}
-          style={{ background: "#303031" }}
-          className="px-4 py-2 text-white text-center cursor-pointer font-medium"
+
+        <button
+          onClick={(e) => { e.preventDefault(); formSubmit(); }}
+          className="w-full py-3 bg-gradient-to-r from-neon-purple to-neon-pink hover:opacity-90 text-white font-bold rounded-lg shadow-[0_0_20px_rgba(255,0,85,0.3)] transition-all flex items-center justify-center space-x-2 mt-4"
         >
-          Create an account
-        </div>
+          <span>Create Account</span>
+          <UserPlus size={18} />
+        </button>
       </form>
     </Fragment>
   );

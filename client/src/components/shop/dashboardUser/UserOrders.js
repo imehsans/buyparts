@@ -1,7 +1,10 @@
-import React, { Fragment, useEffect, useContext } from "react";
+import React, { Fragment, useEffect, useContext, useState } from "react";
 import moment from "moment";
 import { fetchOrderByUser } from "./Action";
 import Layout, { DashboardUserContext } from "./Layout";
+import { Loader, Package, AlertCircle, Star } from "lucide-react";
+
+import ReviewModal from "./ReviewModal";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -9,80 +12,107 @@ const TableHeader = () => {
   return (
     <Fragment>
       <thead>
-        <tr>
-          <th className="px-4 py-2 border">Products</th>
-          <th className="px-4 py-2 border">Status</th>
-          <th className="px-4 py-2 border">Total</th>
-          <th className="px-4 py-2 border">Phone</th>
-          <th className="px-4 py-2 border">Address</th>
-          <th className="px-4 py-2 border">Transaction Id</th>
-          <th className="px-4 py-2 border">Checkout</th>
-          <th className="px-4 py-2 border">Processing</th>
+        <tr className="bg-white/5 text-gray-300 text-sm uppercase tracking-wider text-left">
+          <th className="px-6 py-4 rounded-tl-xl">Products</th>
+          <th className="px-6 py-4">Status</th>
+          <th className="px-6 py-4">Total</th>
+          <th className="px-6 py-4">Phone</th>
+          <th className="px-6 py-4">Address</th>
+          <th className="px-6 py-4">Transaction Id</th>
+          <th className="px-6 py-4">Tracking Details</th>
+          <th className="px-6 py-4">Date</th>
+          <th className="px-6 py-4 rounded-tr-xl">Updated</th>
+          <th className="px-6 py-4 text-center rounded-tr-xl">Actions</th>
         </tr>
       </thead>
     </Fragment>
   );
 };
 
-const TableBody = ({ order }) => {
+const TableBody = ({ order, openReviewModal }) => {
   return (
     <Fragment>
-      <tr className="border-b">
-        <td className="w-48 hover:bg-gray-200 p-2 flex flex-col space-y-1">
-          {order.allProduct.map((product, i) => {
-            return (
-              <span className="block flex items-center space-x-2" key={i}>
-                <img
-                  className="w-8 h-8 object-cover object-center"
-                  src={`${apiURL}/uploads/products/${product.id.pImages[0]}`}
-                  alt="productImage"
-                />
-                <span>{product.id.pName}</span>
-                <span>{product.quantitiy}x</span>
-              </span>
-            );
-          })}
+      <tr className="border-b border-white/5 hover:bg-white/5 transition-colors text-gray-300 text-sm">
+        <td className="px-6 py-4">
+          <div className="flex flex-col space-y-2">
+            {order.allProduct.map((product, i) => {
+              return (
+                <div className="flex items-center space-x-3" key={i}>
+                  <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 bg-black/20 border border-white/10">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={`${apiURL}/uploads/products/${product.id.pImages[0]}`}
+                      alt="productImage"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-white font-medium">{product.id.pName}</span>
+                    <span className="text-xs text-gray-500">Qty: {product.quantitiy}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center cursor-default">
+        <td className="px-6 py-4">
           {order.status === "Not processed" && (
-            <span className="block text-red-600 rounded-full text-center text-xs px-2 font-semibold">
-              {order.status}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+              Not processed
             </span>
           )}
           {order.status === "Processing" && (
-            <span className="block text-yellow-600 rounded-full text-center text-xs px-2 font-semibold">
-              {order.status}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+              Processing
             </span>
           )}
           {order.status === "Shipped" && (
-            <span className="block text-blue-600 rounded-full text-center text-xs px-2 font-semibold">
-              {order.status}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              Shipped
             </span>
           )}
           {order.status === "Delivered" && (
-            <span className="block text-green-600 rounded-full text-center text-xs px-2 font-semibold">
-              {order.status}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+              Delivered
             </span>
           )}
           {order.status === "Cancelled" && (
-            <span className="block text-red-600 rounded-full text-center text-xs px-2 font-semibold">
-              {order.status}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+              Cancelled
             </span>
           )}
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center">
+        <td className="px-6 py-4 font-bold text-white">
           ${order.amount}.00
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center">{order.phone}</td>
-        <td className="hover:bg-gray-200 p-2 text-center">{order.address}</td>
-        <td className="hover:bg-gray-200 p-2 text-center">
-          {order.transactionId}
+        <td className="px-6 py-4">{order.phone}</td>
+        <td className="px-6 py-4 max-w-xs truncate" title={order.address}>{order.address}</td>
+        <td className="px-6 py-4 font-mono text-xs">{order.transactionId}</td>
+        <td className="px-6 py-4">
+          {order.courierName && order.trackingId ? (
+            <div className="flex flex-col space-y-1">
+              <span className="text-neon-blue font-bold text-xs uppercase">{order.courierName}</span>
+              <span className="text-gray-400 text-xs font-mono">{order.trackingId}</span>
+            </div>
+          ) : (
+            <span className="text-gray-600 text-xs italic">Pending</span>
+          )}
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center">
-          {moment(order.createdAt).format("lll")}
+        <td className="px-6 py-4 whitespace-nowrap">
+          {moment(order.createdAt).format("MMM Do YY")}
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center">
-          {moment(order.updatedAt).format("lll")}
+        <td className="px-6 py-4 whitespace-nowrap">
+          {moment(order.updatedAt).format("MMM Do YY")}
+        </td>
+        <td className="px-6 py-4 text-center">
+          {order.status === "Delivered" && (
+            <button
+              onClick={() => openReviewModal(order)}
+              className="inline-flex items-center space-x-1 px-3 py-1.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 rounded-lg hover:bg-yellow-400 hover:text-black transition-all text-xs font-bold uppercase tracking-wider"
+            >
+              <Star size={14} className="fill-current" />
+              <span>Feedback</span>
+            </button>
+          )}
         </td>
       </tr>
     </Fragment>
@@ -93,6 +123,19 @@ const OrdersComponent = () => {
   const { data, dispatch } = useContext(DashboardUserContext);
   const { OrderByUser: orders } = data;
 
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const openReviewModal = (order) => {
+    setSelectedOrder(order);
+    setReviewModalOpen(true);
+  };
+
+  const closeReviewModal = () => {
+    setReviewModalOpen(false);
+    setSelectedOrder(null);
+  };
+
   useEffect(() => {
     fetchOrderByUser(dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,54 +144,55 @@ const OrdersComponent = () => {
   if (data.loading) {
     return (
       <div className="w-full md:w-9/12 flex items-center justify-center py-24">
-        <svg
-          className="w-12 h-12 animate-spin text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          ></path>
-        </svg>
+        <div className="flex flex-col items-center space-y-4">
+          <Loader size={48} className="text-neon-blue animate-spin" />
+          <span className="text-gray-400 font-medium animate-pulse">Loading Orders...</span>
+        </div>
       </div>
     );
   }
   return (
     <Fragment>
-      <div className="flex flex-col w-full my-4 md:my-0 md:w-9/12 md:px-8">
-        <div className="border">
-          <div className="py-4 px-4 text-lg font-semibold border-t-2 border-yellow-700">
-            Orders
+      <div className="flex flex-col w-full my-4 md:my-0 md:w-9/12 md:pl-8">
+        <div className="glass-panel border border-white/5 rounded-2xl overflow-hidden shadow-2xl relative min-h-[500px]">
+          {/* Decorative Header Line */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-blue to-neon-purple"></div>
+
+          <div className="p-6 border-b border-white/5 flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-neon-blue/10 rounded-lg">
+                <Package className="text-neon-blue" size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-white tracking-wide">My Orders</h2>
+            </div>
+            <span className="text-xs font-mono text-gray-500 bg-black/30 px-3 py-1 rounded-full border border-white/5">
+              Total Orders: {orders ? orders.length : 0}
+            </span>
           </div>
-          <hr />
-          <div className="overflow-auto bg-white shadow-lg p-4">
-            <table className="table-auto border w-full my-2">
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <TableHeader />
-              <tbody>
+              <tbody className="divide-y divide-white/5">
                 {orders && orders.length > 0 ? (
-                  orders.map((item, i) => {
-                    return <TableBody key={i} order={item} />;
+                  orders.map((order, i) => {
+                    return <TableBody key={i} order={order} openReviewModal={openReviewModal} />;
                   })
                 ) : (
                   <tr>
                     <td
-                      colSpan="8"
-                      className="text-xl text-center font-semibold py-8"
+                        colSpan="9"
+                        className="px-6 py-24 text-center"
                     >
-                      No order found
+                        <div className="flex flex-col items-center justify-center space-y-4 opacity-50">
+                          <AlertCircle size={48} className="text-gray-500" />
+                          <span className="text-xl text-gray-400">No orders found!</span>
+                        </div>
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
-            <div className="text-sm text-gray-600 mt-2">
-              Total {orders && orders.length} order found
-            </div>
           </div>
         </div>
       </div>

@@ -10,8 +10,8 @@ export const getAllOrder = async () => {
   }
 };
 
-export const editCategory = async (oId, status) => {
-  let data = { oId: oId, status: status };
+export const editCategory = async (oId, status, courierName, trackingId) => {
+  let data = { oId: oId, status: status, courierName, trackingId };
   console.log(data);
   try {
     let res = await axios.post(`${apiURL}/api/order/update-order`, data);

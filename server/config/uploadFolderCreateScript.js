@@ -22,6 +22,27 @@ const CreateAllFolder = () => {
       recursive: true,
     });
   }
+
+  const ordersFolder = "./public/uploads/orders";
+  if (!fs.existsSync(ordersFolder)) {
+    fs.mkdirSync(ordersFolder, {
+      recursive: true,
+    });
+  }
+
+  const userProfileFolder = "./public/uploads/user";
+  if (!fs.existsSync(userProfileFolder)) {
+    fs.mkdirSync(userProfileFolder, {
+      recursive: true,
+    });
+  }
+
+  const mainCategoriesFolder = "./public/uploads/mainCategories";
+  if (!fs.existsSync(mainCategoriesFolder)) {
+    fs.mkdirSync(mainCategoriesFolder, {
+      recursive: true,
+    });
+  }
 };
 
 module.exports = CreateAllFolder;

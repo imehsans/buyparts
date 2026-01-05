@@ -2,6 +2,7 @@ import React, { Fragment, useState, useContext } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 import { LayoutContext } from "../index";
+import { X } from "lucide-react";
 
 const LoginSignup = (props) => {
   const { data, dispatch } = useContext(LayoutContext);
@@ -26,52 +27,51 @@ const LoginSignup = (props) => {
 
   return (
     <Fragment>
-      {/* Black Overlay  */}
+      {/* Black Overlay */}
       <div
         onClick={(e) => loginSignupModalToggle()}
         className={` ${
           data.loginSignupModal ? "" : "hidden"
-        } fixed top-0 z-40 w-full h-screen bg-black opacity-50 cursor-pointer`}
+          } fixed top-0 left-0 z-40 w-full h-screen bg-black/80 backdrop-blur-sm transition-opacity duration-300`}
       ></div>
+
       {/* Signup Login Component Render */}
       <section
         className={` ${
           data.loginSignupModal ? "" : "hidden"
-        } fixed z-40 inset-0 my-8 md:my-20 flex items-start justify-center overflow-auto`}
+          } fixed z-50 inset-0 flex items-center justify-center overflow-auto animate-in zoom-in-95 duration-200`}
       >
-        <div className="w-11/12 md:w-3/5 lg:w-2/4 relative space-y-4 bg-white p-6 md:px-12 md:py-6">
-          {login ? <Login /> : <Signup />}
-          <div className="flex items-center space-x-2">
-            <span className="border-b border-gray-500 w-full" />
-            <span className="font-medium">or</span>
-            <span className="border-b border-gray-500 w-full" />
-          </div>
-          <div
-            onClick={(e) => changeLoginSignup()}
-            style={{ color: "#303031", border: "1px solid #303031" }}
-            className="px-4 py-2 font-medium text-center cursor-pointer"
-          >
-            {loginValue}
-          </div>
-          {/*  Modal Close Button */}
-          <div className="absolute top-0 right-0 mx-4">
-            <svg
-              onClick={(e) => {
+        <div className="w-11/12 md:w-3/5 lg:w-[450px] relative bg-dark-card border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col p-6 md:p-8">
+
+          {/* Close Button */}
+          <button
+            onClick={(e) => {
                 loginSignupModalToggle();
                 dispatch({ type: "loginSignupError", payload: false });
               }}
-              className="w-6 h-6 cursor-pointer"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
+            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          >
+            <X size={24} />
+          </button>
+
+          {/* Main Content */}
+          <div className="mt-4">
+            {login ? <Login /> : <Signup />}
           </div>
+
+          <div className="relative flex items-center py-6">
+            <div className="flex-grow border-t border-white/10"></div>
+            <span className="flex-shrink-0 mx-4 text-gray-500 text-sm">Or</span>
+            <div className="flex-grow border-t border-white/10"></div>
+          </div>
+
+          <button
+            onClick={(e) => changeLoginSignup()}
+            className="w-full py-3 rounded-lg border border-neon-blue/30 text-neon-blue hover:bg-neon-blue/10 transition-all font-medium uppercase tracking-wider text-sm shadow-[0_0_10px_rgba(0,243,255,0.1)] hover:shadow-[0_0_20px_rgba(0,243,255,0.3)]"
+          >
+            {loginValue}
+          </button>
+
         </div>
       </section>
     </Fragment>

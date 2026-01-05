@@ -1,8 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Search, Bell, Menu, LogOut, Settings, ShoppingBag, User } from "lucide-react";
+import logo from "../../../assets/icon/logobuyparts.png";
 
 const AdminNavber = (props) => {
   const navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("jwt");
@@ -13,191 +16,92 @@ const AdminNavber = (props) => {
 
   return (
     <Fragment>
-      <nav className="sticky z-10 flex items-center shadow-md justify-between px-4 py-4 md:px-8 top-0 w-full bg-white">
-        {/*  Large Screen Show  */}
-        <div className="hidden lg:block lg:flex lg:items-center lg:space-x-4 mr-32">
-          <span>
-            <svg
-              className="w-8 h-8 cursor-pointer text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+      <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-dark-surface/80 border-b border-gray-800 shadow-lg">
+        <div className="flex items-center justify-between px-6 py-4">
+
+          {/* Logo / Menu Trigger */}
+          <div className="flex items-center space-x-4">
+            <button className="lg:hidden text-gray-400 hover:text-white">
+              <Menu size={24} />
+            </button>
+            <div
+              onClick={(e) => navigate("/admin/dashboard")}
+              className="hidden lg:block cursor-pointer transition-transform duration-300 hover:scale-105"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </span>
-        </div>
-        {/*  Large Screen Show  */}
-        <div className="hidden lg:block">
-          <span
-            onClick={(e) => navigate("/admin/dashboard")}
-            style={{ letterSpacing: "0.70rem" }}
-            className="flex items-left text-center font-bold uppercase text-gray-800 text-2xl cursor-pointer px-2 text-center"
-          >
-            BuyParts
-          </span>
-        </div>
-        {/* Small Screen Show */}
-        <div className="lg:hidden flex items-center">
-          <svg
-            id="hamburgerBtn"
-            className="lg:hidden w-8 h-8 cursor-pointer text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-          <span
-            onClick={(e) => navigate("/admin/dashboard")}
-            style={{ letterSpacing: "0.10rem" }}
-            className="flex items-left text-center font-bold uppercase text-gray-800 text-2xl cursor-pointer px-2 text-center"
-          >
-            BuyParts
-          </span>
-        </div>
-        {/* Both Screen show */}
-        <div className="flex items-center">
-          <div className="hover:bg-gray-200 rounded-lg p-2" title="Search">
-            <svg
-              className="cursor-pointer w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              />
-            </svg>
-          </div>
-          <div className="hover:bg-gray-200 rounded-lg p-2" title="Search">
-            <svg
-              className="cursor-pointer w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-          {/* Logout Button Dropdown */}
-          <div
-            className="userDropdownBtn hover:bg-gray-200 px-2 py-2 rounded-lg relative"
-            title="Logout"
-          >
-            <svg
-              className="cursor-pointer w-8 h-8 text-gray-600 hover:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div className="userDropdown absolute right-0 mt-1 bg-gray-200 rounded">
-              <li className="flex flex-col text-gray-700">
-                <span
-                  onClick={(e) => navigate("/")}
-                  className="flex space-x-1 py-2 px-8 hover:bg-gray-400 cursor-pointer"
-                >
-                  <span>
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                      />
-                    </svg>
-                  </span>
-                  <span>Shop</span>
-                </span>
-                <span className="flex space-x-1 py-2 px-8 hover:bg-gray-400 cursor-pointer">
-                  <span>
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </span>
-                  <span>Setting</span>
-                </span>
-                <span
-                  onClick={(e) => logout()}
-                  className="flex space-x-1 py-2 px-8 hover:bg-gray-400 cursor-pointer"
-                >
-                  <span>
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                      />
-                    </svg>
-                  </span>
-                  <span>Logout</span>
-                </span>
-              </li>
+              <img src={logo} alt="BuyParts Admin" className="h-10 w-auto" />
             </div>
           </div>
+
+          {/* Center Search (Optional) */}
+          <div className="hidden md:flex flex-1 max-w-xl mx-8 relative group">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search size={18} className="text-gray-500 group-focus-within:text-neon-blue transition-colors" />
+            </div>
+            <input
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg leading-5 bg-black/20 text-gray-300 placeholder-gray-500 focus:outline-none focus:bg-black/40 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue sm:text-sm transition-all"
+              placeholder="Search command center..."
+            />
+          </div>
+
+          {/* Right Actions */}
+          <div className="flex items-center space-x-4">
+
+            <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full relative transition-colors">
+              <Bell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-neon-pink rounded-full animate-pulse-glow"></span>
+            </button>
+
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-gray-700"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-neon-blue to-neon-purple p-[1px]">
+                  <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                    <User size={16} className="text-white" />
+                  </div>
+                </div>
+                <span className="hidden md:block text-sm font-medium text-gray-300">Admin Commander</span>
+              </button>
+
+              {dropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-48 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] bg-dark-card ring-1 ring-black ring-opacity-5 py-1 text-gray-300 border border-gray-700 animate-in fade-in zoom-in-95 duration-200"
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  <div
+                    onClick={() => navigate("/")}
+                    className="block px-4 py-2 text-sm hover:bg-white/10 hover:text-white cursor-pointer transition-colors"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <ShoppingBag size={16} />
+                      <span>Store Front</span>
+                    </div>
+                  </div>
+                  <div className="block px-4 py-2 text-sm hover:bg-white/10 hover:text-white cursor-pointer transition-colors">
+                    <div className="flex items-center space-x-2">
+                      <Settings size={16} />
+                      <span>Settings</span>
+                    </div>
+                  </div>
+                  <div className="border-t border-gray-700 my-1"></div>
+                  <div 
+                    onClick={logout}
+                    className="block px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 cursor-pointer transition-colors"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <LogOut size={16} />
+                      <span>Disconnect</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </div>
         </div>
-        {/* Mobile Navber */}
-        {/* End Mobile Navber */}
       </nav>
     </Fragment>
   );

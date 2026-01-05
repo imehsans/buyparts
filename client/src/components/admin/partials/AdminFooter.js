@@ -5,11 +5,14 @@ const AdminFooter = (props) => {
   return (
     <Fragment>
       <footer
-        style={{ background: "#303031", color: "#87898A" }}
-        className="z-10 py-6 px-4 md:px-12 text-center"
+        className="z-10 py-6 px-4 md:px-12 text-center text-xs text-gray-600 border-t border-gray-800 bg-dark"
       >
-        BuyParts. All rights reserved © {moment().format("YYYY")}
-            </footer>
+        <div className="flex justify-center items-center space-x-2">
+          <span>BUYPARTS SYSTEM STATUS: <span className="text-neon-green">OPTIMAL</span></span>
+          <span>|</span>
+          <span>© {moment().format("YYYY")}</span>
+        </div>
+      </footer>
     </Fragment>
   );
 };

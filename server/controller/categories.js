@@ -15,11 +15,11 @@ class Category {
   }
 
   async postAddCategory(req, res) {
-    let { cName, cDescription, cStatus } = req.body;
+    let { cName, cDescription, cStatus, cType } = req.body;
     let cImage = req.file.filename;
     const filePath = `../server/public/uploads/categories/${cImage}`;
 
-    if (!cName || !cDescription || !cStatus || !cImage) {
+    if (!cName || !cDescription || !cStatus || !cImage || !cType) {
       fs.unlink(filePath, (err) => {
         if (err) {
           console.log(err);
@@ -42,6 +42,7 @@ class Category {
             cName,
             cDescription,
             cStatus,
+            cType,
             cImage,
           });
           try {
@@ -59,14 +60,15 @@ class Category {
   }
 
   async postEditCategory(req, res) {
-    let { cId, cDescription, cStatus } = req.body;
-    if (!cId || !cDescription || !cStatus) {
+    let { cId, cDescription, cStatus, cType } = req.body;
+    if (!cId || !cDescription || !cStatus || !cType) {
       return res.json({ error: "All filled must be required" });
     }
     try {
       let editCategory = categoryModel.findByIdAndUpdate(cId, {
         cDescription,
         cStatus,
+        cType,
         updatedAt: Date.now(),
       });
       let edit = await editCategory.exec();

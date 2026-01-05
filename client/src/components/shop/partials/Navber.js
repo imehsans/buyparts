@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./style.css";
 
 import { logout } from "./Action";
+import logo from "../../../assets/icon/logobuyparts.png";
 import { LayoutContext } from "../index";
 import { isAdmin } from "../auth/fetchApi";
 
@@ -37,29 +38,45 @@ const Navber = (props) => {
     <Fragment>
       {/* Floating Glass Navbar */}
       <nav className="fixed top-4 left-4 right-4 z-50 glass-panel rounded-xl border border-white/5">
-        <div className="mx-6 my-3 grid grid-cols-4 lg:grid-cols-3 items-center">
+        <div className="mx-6 my-3 flex items-center justify-between">
 
-          {/* Mobile Menu Icon */}
-          <div className="col-span-1 lg:hidden flex items-center">
-            <svg
-              onClick={(e) => navberToggleOpen()}
-              className="w-8 h-8 cursor-pointer text-brand-orange hover:text-white transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+          {/* LEFT SECTION: Menu (Mobile) & Logo */}
+          <div className="flex items-center space-x-4">
+            {/* Mobile Menu Icon */}
+            <div className="lg:hidden flex items-center">
+              <svg
+                onClick={(e) => navberToggleOpen()}
+                className="w-8 h-8 cursor-pointer text-brand-orange hover:text-white transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </div>
+
+            {/* Logo */}
+            <div
+              onClick={(e) => navigate("/")}
+              className="cursor-pointer group"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
+              <img
+                src={logo}
+                alt="BuyParts.pk"
+                className="h-12 w-auto group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_10px_rgba(253,126,20,0.4)]"
               />
-            </svg>
+            </div>
           </div>
 
-          {/* Desktop Links */}
-          <div className="hidden lg:flex col-span-1 items-center space-x-2">
+
+          {/* CENTER SECTION: Desktop Links */}
+          <div className="hidden lg:flex items-center space-x-2">
             <span
               className={navLinkClass("/")}
               onClick={(e) => navigate("/")}
@@ -80,20 +97,23 @@ const Navber = (props) => {
             </span>
           </div>
 
-          {/* Logo */}
-          <div
-            onClick={(e) => navigate("/")}
-            className="col-span-2 lg:col-span-1 text-center cursor-pointer group"
-          >
-            <span className="text-3xl font-black tracking-tighter uppercase inline-block group-hover:scale-105 transition-transform duration-300">
-              <span className="text-brand-orange">BUY</span>
-              <span className="text-white">PARTS</span>
-              <span className="text-gray-400 text-xl">.PK</span>
-            </span>
-          </div>
-
-          {/* Right Actions */}
-          <div className="col-span-1 flex justify-end items-center space-x-4">
+          {/* RIGHT SECTION: Actions */}
+          <div className="flex justify-end items-center space-x-4">
+            {/* Admin Dashboard Button (Only for Admin) */}
+            {isAdmin() && (
+              <div
+                onClick={() => navigate("/admin/dashboard")}
+                className="hidden md:flex px-4 py-2 bg-brand-orange/10 text-brand-orange border border-brand-orange/20 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-brand-orange hover:text-white transition-all cursor-pointer items-center space-x-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </div>
+            )}
 
             {/* Wishlist */}
             <div
@@ -120,7 +140,7 @@ const Navber = (props) => {
 
             {/* Account / Login */}
             {localStorage.getItem("jwt") ? (
-              <div className="relative group">
+              <div className="relative group pb-2 -mb-2">
                 <div className="p-2 rounded-full hover:bg-white/5 transition-all cursor-pointer">
                   <svg
                     className="w-6 h-6 text-gray-400 group-hover:text-brand-orange"
@@ -138,31 +158,30 @@ const Navber = (props) => {
                   </svg>
                 </div>
 
-                {/* Dropdown */}
-                <div className="absolute right-0 mt-4 w-48 bg-brand-dark border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block transfrom origin-top-right transition-all">
-                  <div className="py-1">
-                    {!isAdmin() ? (
-                      <>
-                        <div onClick={() => navigate("/user/orders")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
-                          <span>Orders</span>
+                {/* Dropdown with padding bridge */}
+                <div className="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+                  <div className="bg-brand-dark border border-white/10 rounded-xl shadow-2xl overflow-hidden transform origin-top-right transition-all">
+                    <div className="py-1">
+                      {isAdmin() && (
+                        <div onClick={() => navigate("/admin/dashboard")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2 border-b border-white/5">
+                          <span>Admin Dashboard</span>
                         </div>
-                        <div onClick={() => navigate("/user/profile")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
-                          <span>Profile</span>
-                        </div>
-                        <div onClick={() => navigate("/wish-list")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
-                          <span>Wishlist</span>
-                        </div>
-                        <div onClick={() => navigate("/user/setting")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
-                          <span>Settings</span>
-                        </div>
-                      </>
-                    ) : (
-                      <div onClick={() => navigate("/admin/dashboard")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
-                        <span>Admin Dashboard</span>
+                      )}
+                      <div onClick={() => navigate("/user/orders")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
+                        <span>Orders</span>
                       </div>
-                    )}
-                    <div onClick={logout} className="px-4 py-3 hover:bg-red-500/10 cursor-pointer text-red-400 hover:text-red-300 flex items-center space-x-2 border-t border-white/10">
-                      <span>Logout</span>
+                      <div onClick={() => navigate("/user/profile")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
+                        <span>Profile</span>
+                      </div>
+                      <div onClick={() => navigate("/wish-list")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
+                        <span>Wishlist</span>
+                      </div>
+                      <div onClick={() => navigate("/user/setting")} className="px-4 py-3 hover:bg-white/5 cursor-pointer text-gray-300 hover:text-brand-orange flex items-center space-x-2">
+                        <span>Settings</span>
+                      </div>
+                      <div onClick={logout} className="px-4 py-3 hover:bg-red-500/10 cursor-pointer text-red-400 hover:text-red-300 flex items-center space-x-2 border-t border-white/10">
+                        <span>Logout</span>
+                      </div>
                     </div>
                   </div>
                 </div>

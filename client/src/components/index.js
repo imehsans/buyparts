@@ -8,7 +8,7 @@ import {
   CheckoutPage,
   ContactUs,
 } from "./shop";
-import { DashboardAdmin, Categories, Products, Orders } from "./admin";
+import { DashboardAdmin, Categories, MainCategories, Products, Orders, PaymentSettings } from "./admin";
 import { UserProfile, UserOrders, SettingUser } from "./shop/dashboardUser";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -40,8 +40,10 @@ const AppRoutes = () => {
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/dashboard" element={<DashboardAdmin />} />
           <Route path="/admin/dashboard/categories" element={<Categories />} />
+          <Route path="/admin/dashboard/main-categories" element={<MainCategories />} />
           <Route path="/admin/dashboard/products" element={<Products />} />
           <Route path="/admin/dashboard/orders" element={<Orders />} />
+          <Route path="/admin/dashboard/payment-settings" element={<PaymentSettings />} />
         </Route>
 
         {/* User Protected */}

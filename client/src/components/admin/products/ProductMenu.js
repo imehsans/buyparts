@@ -2,35 +2,35 @@ import React, { Fragment, useContext } from "react";
 import { ProductContext } from "./index";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
+import { PlusCircle, ShoppingBag } from "lucide-react";
 
 const ProductMenu = (props) => {
   const { dispatch } = useContext(ProductContext);
   return (
     <Fragment>
-      <div className="col-span-1 flex justify-between items-center">
-        <div className="flex items-center">
-          {/* It's open the add product modal */}
-          <span
-            style={{ background: "#303031" }}
-            onClick={(e) =>
-              dispatch({ type: "addProductModal", payload: true })
-            }
-            className="rounded-full cursor-pointer p-2 bg-gray-800 flex items-center text-gray-100 text-sm font-semibold uppercase"
-          >
-            <svg
-              className="w-6 h-6 text-gray-100 mr-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+      <div className="col-span-1 mb-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-dark-card border border-white/5 p-4 rounded-xl shadow-lg backdrop-blur-sm">
+
+          {/* Header Title */}
+          <h2 className="text-xl font-bold text-white tracking-wide flex items-center">
+            <span className="bg-neon-pink/10 p-2 rounded-lg mr-3 text-neon-pink border border-neon-pink/20">
+              <ShoppingBag size={20} />
+            </span>
+            Product Inventory
+          </h2>
+
+          <div className="flex items-center space-x-4 w-full md:w-auto">
+            {/* Add Button */}
+            <button
+              onClick={(e) =>
+                dispatch({ type: "addProductModal", payload: true })
+              }
+              className="flex items-center justify-center space-x-2 px-6 py-2 bg-neon-pink/10 hover:bg-neon-pink/20 text-neon-pink border border-neon-pink/50 rounded-lg transition-all shadow-[0_0_15px_rgba(255,0,85,0.2)] hover:shadow-[0_0_25px_rgba(255,0,85,0.4)] font-medium uppercase tracking-wider text-sm w-full md:w-auto"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Add Product
-          </span>
+              <PlusCircle size={18} />
+              <span>Add Product</span>
+            </button>
+          </div>
         </div>
         <AddProductModal />
         <EditProductModal />

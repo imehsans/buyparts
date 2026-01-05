@@ -33,6 +33,7 @@ export const categoryReducer = (state, action) => {
           cId: action.cId,
           des: action.des,
           status: action.status,
+          cType: action.cType,
         },
       };
     case "editCategoryModalClose":
